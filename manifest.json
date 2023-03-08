@@ -1,6 +1,6 @@
 {
-  "name": "无限浪采集插件",
-  "description": "支持1688 ，aws 等数据采集",
+  "name": "云效日报插件",
+  "description": "云效日报插件",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -15,20 +15,23 @@
   "content_scripts": [
     {
       "matches": [
-        "https://devops.aliyun.com/organization/*"
+        "*://devops.aliyun.com/organization/*",
+        "*://devops.aliyun.com/*"
       ],
       "css": [
-        "css/content.css",
-        "css/dxm_modal.css"
       ],
       "js": [
         "depends/jquery-3.6.0.min.js",
         "js/content-script.js"
       ],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ],
+  "host_permissions": [
+    "*://*.aliyun.com/"
+  ],
   "permissions": [
-    "webRequest"
+    "webRequest",
+    "cookies"
   ]
 }

@@ -56,4 +56,4 @@ function insertBtn() {
 }
 
 
-setTimeout(insertBtn, 5000)
+setTimeout(insertBtn, 2000)

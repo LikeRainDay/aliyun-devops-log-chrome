@@ -22,3 +22,7 @@
     position: absolute;
     display: none;
 }
+
+.system-bar-right{
+    flex-basis: calc(60vw - 16px);
+}

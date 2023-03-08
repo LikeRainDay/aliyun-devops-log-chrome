@@ -70,14 +70,14 @@ function getTaskData() {
 }
 
 function insertBtn() {
-    const generalLogReportBtn = $('<button name="aliyun-devops-log-report" href="javascript:void(0)" title="生成日报">生成日报</button>')
-    $("div[class='header-name-wrapper__2-RR']").append(generalLogReportBtn)
+    const generalLogReportBtn = $('<button name="aliyun-devops-log-report" href="javascript:void(0)" title="日报">日报</button>')
+    $("div[id='tb-navigation-customOperation']").after(generalLogReportBtn)
     $("button[name='aliyun-devops-log-report']").click(function () {
         getTaskData();
     });
 }
 
 setTimeout(insertBtn, 2000);
-$("div[class='organization-portal-content-container']").bind(DOMNodeInserted, function (e) {
-    setTimeout(insertBtn, 2000);
-});
+// $("div[class='organization-portal-content-container']").bind(DOMNodeInserted, function (e) {
+//     setTimeout(insertBtn, 2000);
+// });

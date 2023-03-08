@@ -1,18 +1,11 @@
-.votobo-fetch {
-    position: fixed;
-    line-height: 40px;
-    left: auto;
-    right: 50px;
-    bottom: 10px;
-    padding-left: 25px;
-    padding-right: 25px;
-    width: auto;
-    height: 40px;
-    font-family: sans-serif;
-    font-size: 13px;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 2147483647 !important;
-    border-radius: 2px;
+.system-bar-right {
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(60vw - 16px);
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    flex-direction: row-reverse;
+    padding-left: 16px;
+    z-index: 4;
 }

@@ -19,6 +19,7 @@
         "*://devops.aliyun.com/*"
       ],
       "css": [
+        "css/content.css"
       ],
       "js": [
         "depends/jquery-3.6.0.min.js",

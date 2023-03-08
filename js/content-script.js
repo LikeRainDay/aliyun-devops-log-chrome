@@ -17,8 +17,12 @@ function initToken() {
     });
 }
 
+function alertLogPanel(html) {
+    $("div[class='header-mask__9LmE']").after($(html))
+}
+
 function requestTaskListData() {
-    var settings = {
+    const settings = {
         "url": "https://devops.aliyun.com/api/graphql",
         "method": "POST",
         "timeout": 0,
@@ -35,8 +39,25 @@ function requestTaskListData() {
         }),
     };
 
+    let html = '<div class="aliyun-devops-log-show log-window">';
     $.ajax(settings).done(function (response) {
-        console.log(response.data);
+        console.log(response.data.Search.result)
+        response.data.Search.result.filter(item => item.isDone === true).forEach(item => {
+            //今天已完成
+            html += '<p>' + item.content + '</p>';
+        });
+
+        response.data.Search.result.filter(item => item.isDone === false).forEach(item => {
+            //明天待做
+            html += '<p>' + item.content + '</p>';
+        });
+
+        response.data.Search.result.filter(item => item.isDone === false).forEach(item => {
+            //今天未完成
+            html += '<p>' + item.content + '</p>';
+        });
+        html += '</div>';
+        alertLogPanel(html);
     });
 }
 
@@ -45,6 +66,7 @@ function getTaskData() {
         initToken();
     }
     requestTaskListData();
+
 }
 
 function insertBtn() {
@@ -55,5 +77,7 @@ function insertBtn() {
     });
 }
 
-
-setTimeout(insertBtn, 2000)
+setTimeout(insertBtn, 2000);
+$("div[class='organization-portal-content-container']").bind(DOMNodeInserted, function (e) {
+    setTimeout(insertBtn, 2000);
+});

@@ -43,12 +43,19 @@ function isTomorrow(date, today) {
 
 function generalItemElement(taskId, projectName, taskName) {
     const taskUrl = "https://devops.aliyun.com/task/" + taskId;
+    if (projectName === '') {
+        return `<a href=${taskUrl}>${taskName}</a></br>`
+    }
     return `<a href=${taskUrl}>${projectName}-${taskName}</a></br>`
 }
 
 function convertToContent(html, todayNoCompile) {
     for (let i = 0; i < todayNoCompile.length; i++) {
-        html += (i + 1) + '. ' + generalItemElement(todayNoCompile[i]._id, todayNoCompile[i].project.name, todayNoCompile[i].content);
+        var projectName = '';
+        if (todayNoCompile[i].project != null) {
+            projectName = todayNoCompile[i].project.name;
+        }
+        html += (i + 1) + '. ' + generalItemElement(todayNoCompile[i]._id, projectName, todayNoCompile[i].content);
     }
     return html;
 }

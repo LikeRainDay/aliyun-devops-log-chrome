@@ -19,10 +19,13 @@
         "*://devops.aliyun.com/*"
       ],
       "css": [
-        "css/content.css"
+        "css/content.css",
+        "css/dialog.css"
       ],
       "js": [
         "depends/jquery-3.6.0.min.js",
+        "libs/js/dialog.js",
+        "libs/js/zepto.min.js",
         "js/content-script.js"
       ],
       "run_at": "document_end"

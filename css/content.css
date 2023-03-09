@@ -1,28 +1,11 @@
-.aliyun-devops-log-show {
-    background-color: #f5f5f5;
-    border: 1px solid #e5e5e5;
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #333;
-    overflow: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
-}
-
-.log-window{
-    background-color: #D0DEF0;
-    width: 250px;
-    /*padding: 2px;*/
-    margin: 5px;
-    /*控制窗口绝对定位*/
-    position: absolute;
-    display: none;
-}
-
-.system-bar-right{
+.system-bar-right {
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
     flex-basis: calc(60vw - 16px);
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    flex-direction: row-reverse;
+    padding-left: 16px;
+    z-index: 4;
 }

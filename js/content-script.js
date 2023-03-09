@@ -17,8 +17,40 @@ function initToken() {
     });
 }
 
-function alertLogPanel(html) {
-    $("div[class='header-mask__9LmE']").after($(html))
+function isToday(date, today) {
+    if (date == null) {
+        return false;
+    }
+    const split = date.split('T');
+    const waitCalDate = new Date(split[0]);
+    return waitCalDate.getDate() === today.getDate() &&
+        waitCalDate.getMonth() === today.getMonth() &&
+        waitCalDate.getFullYear() === today.getFullYear();
+}
+
+function isTomorrow(date, today) {
+    if (date == null) {
+        return false;
+    }
+    const split = date.split('T');
+    const day3 = new Date();
+    day3.setTime(day3.getTime() + 24 * 60 * 60 * 1000);
+    const newVar = (day3.getMonth() + 1) < 10 ? "0" + (day3.getMonth() + 1) : (day3.getMonth() + 1);
+    const tomorrow = day3.getFullYear() + "-" + newVar + "-" + day3.getDate();
+    console.log(split[0], tomorrow, split[0] === tomorrow)
+    return split[0] === tomorrow;
+}
+
+function generalItemElement(taskId, projectName, taskName) {
+    const taskUrl = "https://devops.aliyun.com/task/" + taskId;
+    return `<a href=${taskUrl}>${projectName}-${taskName}</a>`
+}
+
+function convertToContent(html, todayNoCompile) {
+    for (let i = 0; i < todayNoCompile.length; i++) {
+        html += (i + 1) + '. ' + generalItemElement(todayNoCompile[i]._id, todayNoCompile[i].project.name, todayNoCompile[i].content);
+    }
+    return html;
 }
 
 function requestTaskListData() {
@@ -38,26 +70,22 @@ function requestTaskListData() {
             }
         }),
     };
-
+    const today = new Date();
     let html = '<div class="aliyun-devops-log-show log-window">';
     $.ajax(settings).done(function (response) {
-        console.log(response.data.Search.result)
-        response.data.Search.result.filter(item => item.isDone === true).forEach(item => {
-            //今天已完成
-            html += '<p>' + item.content + '</p>';
-        });
-
-        response.data.Search.result.filter(item => item.isDone === false).forEach(item => {
-            //明天待做
-            html += '<p>' + item.content + '</p>';
-        });
-
-        response.data.Search.result.filter(item => item.isDone === false).forEach(item => {
-            //今天未完成
-            html += '<p>' + item.content + '</p>';
-        });
+        const compileTasks = response.data.Search.result.filter(item => item.isDone === true);
+        const noCompileTasks = response.data.Search.result.filter(item => item.isDone === false);
+        html += '<h3>今天已完成:</h3>';
+        html = convertToContent(html, compileTasks.filter(item => isToday(item.accomplished, today)));
+        html += '<h3>明天待做:</h3>';
+        html = convertToContent(html, noCompileTasks.filter(item => isTomorrow(item.dueDate, today)));
+        html += '<h3>今天未完成:</h3>';
+        html = convertToContent(html, noCompileTasks.filter(item => isToday(item.dueDate, today)));
         html += '</div>';
-        alertLogPanel(html);
+        $.dialog({
+            titleText: '日报',
+            contentHtml: html
+        });
     });
 }
 
@@ -78,6 +106,4 @@ function insertBtn() {
 }
 
 setTimeout(insertBtn, 2000);
-// $("div[class='organization-portal-content-container']").bind(DOMNodeInserted, function (e) {
-//     setTimeout(insertBtn, 2000);
-// });
+

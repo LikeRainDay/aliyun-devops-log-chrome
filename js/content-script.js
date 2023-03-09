@@ -105,5 +105,13 @@ function insertBtn() {
     });
 }
 
-setTimeout(insertBtn, 2500);
+function retryBindElement() {
+    if ( $("div[id='tb-navigation-customOperation']").width() === undefined){
+        setTimeout(retryBindElement, 1000);
+        return;
+    }
+    insertBtn();
+}
+
+setTimeout(retryBindElement, 1000);
 

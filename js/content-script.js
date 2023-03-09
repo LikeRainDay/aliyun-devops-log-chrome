@@ -43,7 +43,7 @@ function isTomorrow(date, today) {
 
 function generalItemElement(taskId, projectName, taskName) {
     const taskUrl = "https://devops.aliyun.com/task/" + taskId;
-    return `<a href=${taskUrl}>${projectName}-${taskName}</a>`
+    return `<a href=${taskUrl}>${projectName}-${taskName}</a></br>`
 }
 
 function convertToContent(html, todayNoCompile) {
